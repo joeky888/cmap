@@ -28,10 +28,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
     .map(|(key, val)| {
         let key = key.clone();
         let val = val.clone();
-        let accuire_pool = Arc::clone(&async_pool).acquire_owned();
+        let acquire_pool = Arc::clone(&async_pool).acquire_owned();
 
         tokio::spawn(async move {
-            let _release_pool = accuire_pool.await;
+            let _release_pool = acquire_pool.await;
             println!("key: {key} val: {val}");
             let ten_millis = time::Duration::from_millis(500);
             thread::sleep(ten_millis);
